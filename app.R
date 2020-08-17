@@ -103,7 +103,7 @@ ui <- fixedPage(
                         Vaccine Research. It is based on a published in 
                         <a href=https://www.sciencedirect.com/science/article/pii/S0264410X18314075>Vaccine</a>. All the 
                         code and data used to make this web application are available on 
-                        <a href=https://github.com/corinne-riddell/WHO/tree/master/app_add-scenarios>Github</a>.  
+                        <a href=https://github.com/corinne-riddell/WHO-app>Github</a>.  
                         If you find an error, please submit a pull request using 
                         Github, or contact me via email (c [dot] riddell 
                         [at] berkeley.edu) or connect on twitter @datavisitor."))
