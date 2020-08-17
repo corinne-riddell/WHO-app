@@ -236,9 +236,11 @@ server <- function(input, output) {
   output$updatedEsts <- renderDataTable({
     updated2 <- updated %>% select(vaccine.efficacy, rsv.attack.rate, RR.wheeze.rsvh, 
                                    baseline.risk.wheeze, RR.wheeze.vacc, NNT, size.one.arm.equal) %>% 
-      mutate(RR.wheeze.vacc = round(RR.wheeze.vacc, 3)) 
+      mutate(RR.wheeze.vacc = round(RR.wheeze.vacc, 3)) %>%
+      arrange(vaccine.efficacy, baseline.risk.wheeze)
     
-    datatable(updated2, 
+    datatable(updated2 %>% mutate(NNT = ceiling(NNT), 
+                                  size.one.arm.equal = ceiling(size.one.arm.equal)), 
               colnames = c("Vaccine efficacy", "RSV attack rate", 
                            "RR for RSV-wheeze", "Baseline risk of childhood recurrent wheeze",
                            "RR vaccine-wheeze", "NNT", "Sample size (per arm)"),
