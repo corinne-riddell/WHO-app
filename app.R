@@ -12,11 +12,22 @@ RSV_wheeze <- RSV_wheeze %>% mutate(user.added = F, Scenario = 0)
 updated <- readr::read_csv("./www/updated_scenarios.csv")
 
 ui <- fixedPage(
-  titlePanel('Sample size estimates for an RCT of maternal RSV vaccine to 
-             prevent childhood recurrent wheeze'),
+  titlePanel('Sample size and number needed to treat estimates for the impact of RSV-LRTI prevention on childhood recurrent wheeze'),
   navbarPage("",
              tabPanel("Overview",
-                      HTML(glue("<b>Overview</b><br>There is interest in assessing the relationship 
+                      mainPanel(
+                        tags$head( HTML( '<script async src="https://www.googletagmanager.com/gtag/js?id=UA-100510105-3"></script>
+                        <script>
+                                                        window.dataLayer = window.dataLayer || [];
+                                                        function gtag(){dataLayer.push(arguments);}
+                                                        gtag("js", new Date());
+
+                                                        gtag("config", "UA-100510105-3");
+                        </script>') ),
+                        # END Google Analytics
+                      HTML(paste("<b>Overview</b>",
+                                 
+                                 'There is interest in assessing the relationship 
                       between interventions to prevent acute respiratory 
                       syncytial virus (RSV) lower respiratory tract infection
                       (LRTI) and long-term childhood outcomes, including 
@@ -29,20 +40,61 @@ ui <- fixedPage(
                       antibody (mAb) and a maternal RSV F protein (RSV-F) 
                       vaccine. These trials provide an opportunity to 
                       recalibrate our estimates and place them alongside our
-                      previously published findings. <br><br> 
-                       <b>Purpose</b><br>
-                       The purpose of the tool is to display results from our paper alongside the updated estimates.<br><br>
-                       In the original study, we combined WHO preferred minimums for vaccine efficacy with literature-supported estimates for the RSV attack rate, the baseline risk of childhood recurrent wheeze, and the risk ratio (RR) for the causal association between early, severe RSV illness (defined as RSV-related lower respiratory tract infection or hospitalization among infants under the age of six months) and childhood recurrent wheeze in order to estimate: a) the required minimal sample size to detect an effect of maternal RSV vaccination on childhood recurrent wheeze, and b) the number of mother-infant pairs that need to be vaccinated (NNT) to prevent one case of childhood recurrent wheeze.<br><br>
-                       For the updated study, we used estimates of efficacy and RSV attack rate from one or both of two recently published trials. We also updated the estimate of the RR for the causal association between early, severe RSV illness and childhood recurrent wheeze based on a new meta-analysis and used the three estimates of childhood recurrent wheeze from the original study.<br><br>
-                       <b>Sample size calculator</b><br>
-                       This application allows you to view our sample size and NNT estimates for these
-                       evidence-informed scenarios and to calculate sample size and NNT 
-                       for scenarios you would like to add. If you are
-                       interested in another outcome (e.g., childhood asthma) or
-                       another exposure (e.g., RSV monoclonals) you can supply estimates most relevant to your 
-                       exposure and outcome of interest."
+                      previously published findings.',  
+                                 
+                                  "<b>Purpose</b>",
+                                 
+                                  'The purpose of the tool is to display results 
+                      from our paper alongside the updated estimates.
+                      In the original study, we combined WHO preferred minimums 
+                      for vaccine efficacy with literature-supported estimates 
+                      for the RSV attack rate, the baseline risk of childhood 
+                      recurrent wheeze, and the risk ratio (RR) for the causal 
+                      association between early, severe RSV illness (defined as 
+                      RSV-related lower respiratory tract infection or 
+                      hospitalization among infants under the age of six months) 
+                      and childhood recurrent wheeze in order to estimate: a) 
+                      the required minimal sample size to detect an effect of 
+                      maternal RSV vaccination on childhood recurrent wheeze, 
+                      and b) the number of mother-infant pairs that need to be 
+                      vaccinated (NNT) to prevent one case of childhood 
+                      recurrent wheeze.',
+                                 
+                                 'For the updated study, we used estimates of 
+                      efficacy and RSV attack rate from one or both of two recently 
+                       published trials. We also updated the estimate of the RR 
+                       for the causal association between early, severe RSV 
+                       illness and childhood recurrent wheeze based on a new
+                       meta-analysis and used the three estimates of childhood
+                       recurrent wheeze from the original study.',
+                                 
+                                 "<b>Sample size calculator</b>",
+                                 
+                       'This application allows you to view our sample size and
+                       NNT estimates for these evidence-informed scenarios and 
+                       to calculate sample size and NNT for scenarios you would
+                       like to add. If you are interested in another outcome 
+                       (e.g., childhood asthma) or another exposure (e.g., RSV
+                       monoclonals) you can supply estimates most relevant to your 
+                       exposure and outcome of interest.',
+                       sep = "<br><br>"
                       )
                       )
+
+                      ),
+                       sidebarPanel(
+                         HTML(paste(
+                                    "<b>Please use the following citation:</b>",
+                                    
+                                    '<a href=https://www.sciencedirect.com/science/article/pii/S0264410X18314075>Riddell CA, Bhat N, Bont LJ, Dupont WD, Feikin DR, Fell DB, Gebretsadik T, Hartert TV, Hutcheon JA, Karron RA, Nair H. Informing randomized clinical trials of respiratory syncytial virus vaccination during pregnancy to prevent recurrent childhood wheezing: a sample size analysis. <i>Vaccine</i>. 2018;36(52):8100-9.</a>',
+
+                                    "<b>Bug reports</b>",
+                                    
+                                    'Submit any bug reports to: c [dot] riddell [at] berkeley.edu or open an issue on <a href=https://github.com/corinne-riddell/WHO-app/issues>Github</a>.',
+                                    sep = "<br><br>")
+                         )
+                       )
+                      
              ),
              tabPanel("Calculator",
                       sidebarPanel(width = 3,
@@ -88,7 +140,7 @@ ui <- fixedPage(
                         dataTableOutput("data1"),
                         plotOutput("sampleSizePlot2"),
                         hr(),
-                        HTML(glue("<b>Data for updated scenarios based on trials</b>")),
+                        HTML(glue("<b>Data for updated scenarios</b>")),
                         dataTableOutput("updatedEsts"),
                         HTML(glue("<b>User-added scenarios</b>")),
                         dataTableOutput("addedRows"),
@@ -97,17 +149,7 @@ ui <- fixedPage(
                         HTML(glue("<b>Data for original scenarios</b>")),
                         dataTableOutput("original")
                       ) 
-             ),  #close tabPanel
-             tabPanel("More information",
-                      HTML(glue("This application was created for the WHO Initiative for 
-                        Vaccine Research. It is based on a published in 
-                        <a href=https://www.sciencedirect.com/science/article/pii/S0264410X18314075>Vaccine</a>. All the 
-                        code and data used to make this web application are available on 
-                        <a href=https://github.com/corinne-riddell/WHO-app>Github</a>.  
-                        If you find an error, please submit a pull request using 
-                        Github, or contact me via email (c [dot] riddell 
-                        [at] berkeley.edu) or connect on twitter @datavisitor."))
-             )
+             )  #close tabPanel
   )
 )
 
