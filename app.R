@@ -84,9 +84,11 @@ ui <- fixedPage(
                       ),
                        sidebarPanel(
                          HTML(paste(
-                                    "<b>Please use the following citation:</b>",
+                                    "<b>Please use the following citations:</b>",
                                     
                                     '<a href=https://www.sciencedirect.com/science/article/pii/S0264410X18314075>Riddell CA, Bhat N, Bont LJ, Dupont WD, Feikin DR, Fell DB, Gebretsadik T, Hartert TV, Hutcheon JA, Karron RA, Nair H. Informing randomized clinical trials of respiratory syncytial virus vaccination during pregnancy to prevent recurrent childhood wheezing: a sample size analysis. <i>Vaccine</i>. 2018;36(52):8100-9.</a>',
+
+                                    'Driscoll AJ, Ortiz JR, Hartert TV, Riddell CA. Recalibrating public health expectations of respiratory syncytial virus lower respiratory tract illness prevention on chronic respiratory disease. Submitted. 2021.',
 
                                     "<b>Bug reports</b>",
                                     
